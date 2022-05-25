@@ -36,13 +36,12 @@ async function run() {
       res.send(parts);
     });
 
-    app.get('/orders', async (req, res)=>{
+    app.get("/orders", async (req, res) => {
       const client = req.query.email;
-      const query = {client: client};
+      const query = { client: client };
       const orders = await orderCollection.find(query).toArray();
       res.send(orders);
-    })
-    
+    });
 
     app.get("/parts/:id", async (req, res) => {
       const id = req.params.id;
@@ -50,13 +49,21 @@ async function run() {
 
       const part = await partsCollection.findOne(query);
       res.send(part);
+    });
 
-      //POST
-      app.post("/orders", async (req, res) => {
-        const orders = req.body;
-        const result = await orderCollection.insertOne(orders);
-        res.send(result);
-      });
+    //POST
+    app.post("/orders", async (req, res) => {
+      const orders = req.body;
+      const result = await orderCollection.insertOne(orders);
+      res.send(result);
+    });
+
+    // Delete
+    app.delete("/orders/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await orderCollection.deleteOne(query);
+      res.send(result);
     });
   } finally {
   }
