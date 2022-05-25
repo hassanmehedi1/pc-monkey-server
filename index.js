@@ -28,12 +28,21 @@ async function run() {
     const partsCollection = client.db("pc_monkey").collection("parts");
     const orderCollection = client.db("pc_monkey").collection("orders");
 
+    // Get
     app.get("/parts", async (req, res) => {
       const query = {};
       const cursor = partsCollection.find(query);
       const parts = await cursor.toArray();
       res.send(parts);
     });
+
+    app.get('/orders', async (req, res)=>{
+      const client = req.query.email;
+      const query = {client: client};
+      const orders = await orderCollection.find(query).toArray();
+      res.send(orders);
+    })
+    
 
     app.get("/parts/:id", async (req, res) => {
       const id = req.params.id;
