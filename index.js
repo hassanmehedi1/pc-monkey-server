@@ -29,6 +29,7 @@ async function run() {
     const partsCollection = client.db("pc_monkey").collection("parts");
     const orderCollection = client.db("pc_monkey").collection("orders");
     const paymentCollection = client.db("pc_monkey").collection("payment");
+    const reviewCollection = client.db("pc_monkey").collection("reviews");
 
     // Payments
     app.post("/create-payment-intent", async (req, res) => {
@@ -54,9 +55,16 @@ async function run() {
       res.send(parts);
     });
 
+    app.get("/review", async (req, res) => {
+      const query = {};
+      const cursor = reviewCollection.find(query);
+      const reviews = await cursor.toArray();
+      res.send(reviews);
+    });
+
     app.get("/orders", async (req, res) => {
-      const client = req.query.email;
-      const query = { client: client };
+      const email = req.query.email;
+      const query = { email: email };
       const orders = await orderCollection.find(query).toArray();
       res.send(orders);
     });
@@ -100,6 +108,12 @@ async function run() {
     app.post("/orders", async (req, res) => {
       const orders = req.body;
       const result = await orderCollection.insertOne(orders);
+      res.send(result);
+    });
+
+    app.post("/review", async (req, res) => {
+      const newReview = req.body;
+      const result = await reviewCollection.insertOne(newReview);
       res.send(result);
     });
 
