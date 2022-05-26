@@ -200,6 +200,12 @@ async function run() {
       res.send(result);
     });
 
+    app.post("/parts", async (req, res) => {
+      const newItem = req.body;
+      const result = await partsCollection.insertOne(newItem);
+      res.send(result);
+    });
+
     // Delete
     app.delete("/orders/:id", async (req, res) => {
       const id = req.params.id;
