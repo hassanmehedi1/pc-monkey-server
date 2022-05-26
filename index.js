@@ -30,6 +30,7 @@ async function run() {
     const orderCollection = client.db("pc_monkey").collection("orders");
     const paymentCollection = client.db("pc_monkey").collection("payment");
     const reviewCollection = client.db("pc_monkey").collection("reviews");
+    const profileCollection = client.db("pc_monkey").collection("profile");
 
     // Payments
     app.post("/create-payment-intent", async (req, res) => {
@@ -82,11 +83,24 @@ async function run() {
       };
 
       const result = await paymentCollection.insertOne(payment);
-      const updatedOrders = await orderCollection.updateOne(
-        filter,
-        updatedDoc
-      );
+      const updatedOrders = await orderCollection.updateOne(filter, updatedDoc);
       res.send(updatedOrders);
+    });
+
+    app.put("/profile", async (req, res) => {
+      // const email = req.params;
+      const data = req.body;
+      // const filter = { email: email };
+      const options = { upsert: true };
+      const updatedDoc = {
+        $set: {
+          data: data,
+        },
+      };
+
+      const result = await profileCollection.insertOne(data);
+      const updatedProfile = await profileCollection.updateOne(options, updatedDoc);
+      res.send(updatedProfile);  
     });
 
     app.get("/orders/:id", async (req, res) => {
