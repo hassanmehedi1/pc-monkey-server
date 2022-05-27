@@ -80,6 +80,11 @@ async function run() {
       res.send(reviews);
     });
 
+    app.get("/allOrders", async (req, res) => {
+      const orders = await orderCollection.find().toArray();
+      res.send(orders);
+    });
+
     app.get("/orders", async (req, res) => {
       const email = req.query.email;
       const query = { email: email };
@@ -118,6 +123,15 @@ async function run() {
       }
     });
 
+    app.put("/order/admin/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: ObjectId(id)};
+      const updateDoc = {
+        $set: { status: "shipped" },
+      };
+      const result = await orderCollection.updateOne(filter, updateDoc);
+      res.send(result);
+    });
 
     app.put("/user/:email", async (req, res) => {
       const email = req.params.email;
@@ -153,19 +167,17 @@ async function run() {
       res.send(updatedOrders);
     });
 
-    app.put("/profile", async (req, res) => {
-      // const email = req.params;
+    app.put("/profile/:email", async (req, res) => {
+      const email = req.params;
       const data = req.body;
-      // const filter = { email: email };
+      const filter = { email: email };
       const options = { upsert: true };
       const updatedDoc = {
-        $set: {
-          data: data,
-        },
+        $set: { linkedin: data.linkedin },
       };
 
       const result = await profileCollection.insertOne(data);
-      const updatedProfile = await profileCollection.updateOne(
+      const updatedProfile = await userCollection.updateOne(
         options,
         updatedDoc
       );
