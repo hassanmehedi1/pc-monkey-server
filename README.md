@@ -7,11 +7,11 @@
 
 ### Features Of My Site
 - Server Side
-   -Used Jwt token for verifying
-   -used cors
-   -express used as nodejs framework
-   -nodemon was implemented
-   -verify admin used for admin role
+ -Used Jwt token for verifying
+ -used cors
+ -express used as nodejs framework
+ -nodemon was implemented
+ -verify admin used for admin role
 
 - Home
   - Contains 5 Sections
