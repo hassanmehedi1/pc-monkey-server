@@ -3,15 +3,17 @@
 ## [Live Website](https://pc-monkey.web.app/)
 
 ### Description
- This website is pc parts manufacturer who sell parts of pc in wholesale. This website is made with react, firebase, mongodb, express. this is a full responsive website. This website implements full CRUD operation. all buttons are functional here.
+
+This website is pc parts manufacturer who sell parts of pc in wholesale. This website is made with react, firebase, mongodb, express. this is a full responsive website. This website implements full CRUD operation. all buttons are functional here.
 
 ### Features Of My Site
+
 - Server Side
- -Used Jwt token for verifying
- -used cors
- -express used as nodejs framework
- -nodemon was implemented
- -verify admin used for admin role
+  *Used Jwt token for verifying
+  *used cors
+  *express used as nodejs framework
+  *nodemon was implemented
+  \*verified admin used for admin role
 
 - Home
   - Contains 5 Sections
@@ -21,7 +23,7 @@
       - Pc parts has private route for placing order. To access it person needs to login first.
     - Reviews.
     - Why Choose US
-    - Community  
+    - Community
     - Footer.
 - Portfolio
   - Information about me.
@@ -33,11 +35,12 @@
 - Register
   - Manual and Social Register.
 - Dashboard
-   - Here Items can be deleted by the user, users can pay for items, give reviews and update their profile.
-   - Admin has special routes for managing orders, give any user admin access, update profile, add products to the website and managing products.
+  - Here Items can be deleted by the user, users can pay for items, give reviews and update their profile.
+  - Admin has special routes for managing orders, give any user admin access, update profile, add products to the website and managing products.
 - Full Responsive Website
 
 ### Technology Used
+
 - MongoDb
 - Express
 - Firebase
